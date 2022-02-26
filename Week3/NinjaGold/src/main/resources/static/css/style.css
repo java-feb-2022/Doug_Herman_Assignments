@@ -1,0 +1,11 @@
+.activities{
+	height: 150px;
+}
+
+.win {
+	color: green;
+}
+
+.loose {
+	color: red;
+}
