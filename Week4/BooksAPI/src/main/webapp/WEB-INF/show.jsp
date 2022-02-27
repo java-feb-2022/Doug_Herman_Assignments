@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Reading Books</title>
 </head>
 <body>
 	<h1><c:out value="${title}"/></h1>
