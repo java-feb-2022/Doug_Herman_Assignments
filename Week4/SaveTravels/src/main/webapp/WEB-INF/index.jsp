@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+<%@ page isErrorPage="true" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,15 +26,21 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 			<tbody>
 				<c:forEach var="expense" items="${allExpenses}">
 				<tr>
-					<td><c:out value="${expense.expense}"/></td>
+					<td><a href="/expenses/${expense.id}"><c:out value="${expense.expense}"/></a></td>
 					<td><c:out value="${expense.vendor}"/></td>
 					<td>$<c:out value="${expense.amount}"/></td>
-					<td><a href="/expenses/edit/${expense.id}">edit</a></td>
+					<td class="d-flex align-items-center">
+						<a href="/expenses/edit/${expense.id}">edit</a>
+						<form action="expenses/delete/${expense.id}" method="post">
+							<input type="hidden" name="_method" value="delete">
+							<input type="submit" value="Delete" class="btn btn-danger ms-3">
+						</form>
+					</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="card mt-10">
+		<div class="card mt-15">
 			<h3 class="card-header">Add an expense:</h3>
 			<form:form action="/expenses/new" method="post" modelAttribute="newExpense">
 				<div class="form-group m-3">

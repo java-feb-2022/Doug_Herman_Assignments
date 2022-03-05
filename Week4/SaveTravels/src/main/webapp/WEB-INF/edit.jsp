@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+<%@ page isErrorPage="true" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +13,13 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 </head>
 <body>
 	<div class="container">
-		<div class="card mt-10">
+		<div class="card">
 			<div class="card-header d-flex justify-content-between align-items-center">
 				<h3>Edit Expense:</h3>
 				<a href="/expenses">Go back</a>
 			</div>
 			<form:form action="/expenses/edit" method="post" modelAttribute="newExpense">
+			<input type="hidden" name="_method" value="put">
 			<form:hidden path="id"/>
 				<div class="form-group m-3">
 					<form:label path="expense">Expense Name:</form:label>
