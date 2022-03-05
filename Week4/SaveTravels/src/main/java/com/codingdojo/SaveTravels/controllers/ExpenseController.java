@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.codingdojo.SaveTravels.models.Expense;
@@ -23,7 +24,8 @@ public class ExpenseController {
 	}
 	
 	@GetMapping("/expenses")
-	public String index(@ModelAttribute("newExpense") Expense expense, Model model) {
+	public String index(@ModelAttribute("newExpense") Expense expense, 
+			Model model) {
 		List<Expense> expenses = expenseService.allExpenses();
 		model.addAttribute("allExpenses", expenses);
 		
@@ -31,7 +33,9 @@ public class ExpenseController {
 	}
 	
 	@PostMapping("/expenses/new")
-	public String addExpense(@Valid @ModelAttribute("newExpense") Expense expense, BindingResult result, Model model) {
+	public String addExpense(@Valid @ModelAttribute("newExpense") Expense expense, 
+			BindingResult result, 
+			Model model) {
 		List<Expense> expenses = expenseService.allExpenses();
 		model.addAttribute("allExpenses", expenses);
 		
@@ -42,4 +46,23 @@ public class ExpenseController {
 			return "redirect:/expenses";
 		}
 	}
+	@GetMapping("/expenses/edit/{id}")
+	public String edit(@PathVariable("id") Long id, 
+			@ModelAttribute("newExpense") Expense expense, 
+			Model model) {
+		model.addAttribute("newExpense", expenseService.findExpense(id));
+		return "edit.jsp";
+	}
+	
+	@PostMapping("expenses/edit")
+	public String editExpense(@Valid @ModelAttribute("newExpense") Expense expense, 
+			BindingResult result) {
+		if (result.hasErrors())
+			return "/edit.jsp";
+		else {
+			expenseService.createExpense(expense);
+			return "redirect:/expenses";
+		}
+	}
+	
 }
