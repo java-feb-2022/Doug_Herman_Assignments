@@ -48,6 +48,7 @@ public class ExpenseController {
 			return "redirect:/expenses";
 		}
 	}
+	
 	@GetMapping("/expenses/edit/{id}")
 	public String edit(@PathVariable("id") Long id, 
 			@ModelAttribute("newExpense") Expense expense, 
