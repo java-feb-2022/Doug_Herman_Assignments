@@ -13,10 +13,7 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
  <div class="container">
  	<nav class="navbar navbar-dark bg-dark text-white p-3">
 		<h1>Welcome, <c:out value="${user.userName}"/></h1>
-		<div>
-			<a href="/bookmarket"><button class="btn btn-outline-primary">Book Market</button></a>
-			<a href="/logout"><button class="btn btn-outline-danger">Logout</button></a>
-		</div>
+		<a href="/logout"><button class="btn btn-outline-danger">Logout</button></a>
 	</nav>
 	<div class="card m-5 bg-light">
 		<div class="card-header d-flex justify-content-between">

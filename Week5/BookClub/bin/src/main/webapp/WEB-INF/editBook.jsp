@@ -23,7 +23,6 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 			<form:form action="/books/${book.id}/edit" method="post" modelAttribute="book">
 			<form:hidden path="id"/>
 			<form:hidden path="user"/>
-			<form:hidden path="borrower"/>
 				<div class="form-group m-3">
 					<form:label path="title">Title:</form:label>
 					<form:errors path="title" class="text-danger"/>
@@ -41,10 +40,6 @@ integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jI
 				</div>
 				<input type="submit" value="Submit" class="btn btn-outline-primary m-3">
 			</form:form>
-			<form action="/books/${book.id}/delete" method="post">
-				<input type="hidden" name="_method" value="delete">
-				<input type="submit" value="Delete" class="btn btn-outline-danger ms-3">
-			</form>
 		</div>
 	</div>
 </body>

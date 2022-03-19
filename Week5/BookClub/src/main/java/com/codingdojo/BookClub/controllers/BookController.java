@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -96,5 +97,40 @@ public class BookController {
 			bookServ.createBook(book);
 			return "redirect:/books";
 		}
+	}
+	
+	@GetMapping("/bookmarket")
+	public String bookMarket(HttpSession session, Model model) {
+		User user = (User)session.getAttribute("user");
+		
+		if(user == null)
+			return "redirect:/";
+		else {
+			model.addAttribute("user", user);
+			model.addAttribute("books", bookServ.allBooks());
+			return "bookMarket.jsp";
+		}
+	}
+	
+	@DeleteMapping("/books/{id}/delete")
+	public String destroy(@PathVariable("id") Long id) {
+		bookServ.deleteBook(id);
+		return "redirect:/books";
+	}
+	
+	@PostMapping("/books/{id}/borrow")
+	public String borrowBook(@PathVariable("id") Long id, HttpSession session) {
+		Book book = bookServ.findBook(id);
+		book.setBorrower((User)session.getAttribute("user"));
+		bookServ.createBook(book);
+		return "redirect:/bookmarket";
+	}
+	
+	@PostMapping("/books/{id}/return")
+	public String returnBook(@PathVariable("id") Long id, HttpSession session) {
+		Book book = bookServ.findBook(id);
+		book.setBorrower(null);
+		bookServ.createBook(book);
+		return "redirect:/bookmarket";
 	}
 }

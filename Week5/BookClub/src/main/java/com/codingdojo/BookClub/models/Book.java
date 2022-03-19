@@ -15,6 +15,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -41,6 +43,11 @@ public class Book {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "borrower_id")
+	@Nullable
+	private User borrower;
+	
 	public Book() {}
 	
 	public Book(String title, String author, String thoughts, User user) {
@@ -48,6 +55,7 @@ public class Book {
 		this.author = author;
 		this.thoughts = thoughts;
 		this.user = user;
+		this.borrower = null;
 	}
 	
 	public Long getId() {
@@ -104,6 +112,14 @@ public class Book {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public User getBorrower() {
+		return borrower;
+	}
+
+	public void setBorrower(User borrower) {
+		this.borrower = borrower;
 	}
 
 	@PrePersist
